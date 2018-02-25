@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BLOG - dodawanie posta</title>
+</head>
+<body>
+    <h1>Dodaj nowy post</h1>
+    <form th:action="@{/addPost}" method="post" >
+        <p><input type="text" th:name="title" placeholder="Ttytuł posta..."></p>
+        <p><textarea type="text" th:name="content">
+        </textarea></p>
+        <p><input type="submit" th:value="Dodaj"></p>
+    </form>
+
+</body>
+</html>
