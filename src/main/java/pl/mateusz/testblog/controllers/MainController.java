@@ -13,6 +13,7 @@ import pl.mateusz.testblog.models.entities.Post;
 import pl.mateusz.testblog.models.entities.PostComment;
 import pl.mateusz.testblog.models.repositories.PostRepository;
 
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +97,6 @@ public class MainController {
         modelMap.addAttribute("posts",postList);
         return "posts";
     }
-
 
     @Autowired
     public MainController(PostRepository postRepository) {
