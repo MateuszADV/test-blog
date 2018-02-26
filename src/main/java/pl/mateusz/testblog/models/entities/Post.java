@@ -15,12 +15,14 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     private Date added = new Date();
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "post",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     //@JoinColumn(name = "postId")
     List<PostComment> comments = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "mapPostTag", joinColumns = {@JoinColumn(name = "postId")}, inverseJoinColumns = {@JoinColumn(name = "tagId")})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "mapPostTag",
+            joinColumns = {@JoinColumn(name = "postId")},
+            inverseJoinColumns = {@JoinColumn(name = "tagId")})
     private Set<Tag> tags = new HashSet<>();
 
     public Set<Tag> getTags() {

@@ -1,6 +1,7 @@
 package pl.mateusz.testblog.models.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String tagName;
+    private Date added = new Date();
 
     @ManyToMany(mappedBy = "tags")
     private Set<Post> posts = new HashSet<>();
@@ -37,5 +39,13 @@ public class Tag {
 
     public void setTagName(String tagName) {
         this.tagName = tagName;
+    }
+
+    public Date getAdded() {
+        return added;
+    }
+
+    public void setAdded(Date added) {
+        this.added = added;
     }
 }
