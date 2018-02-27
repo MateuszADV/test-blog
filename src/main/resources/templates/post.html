@@ -17,9 +17,8 @@
     <h1>Pojedyńczy post</h1>
         <h1 th:text="${post.title}"></h1>
         <div th:text="${post.content}"></div>
-
     <div th:each="comment : ${post.comments}">
-        <div th:text="${#dates.format(comment.added,'yyyy-MM-dd HH:mm')}"></div>
+        <div th:text="${#dates.format(comment.audit.added,'yyyy-MM-dd HH:mm')}"></div>
         <div th:text="${comment.comment}"></div>
     </div>
 

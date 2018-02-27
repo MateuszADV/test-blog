@@ -14,19 +14,19 @@ public class PostComment {
     //private Date added = new Date();
 
     @Embedded
-    private AuditEntity auditEntity = new AuditEntity();
+    private AuditEntity audit = new AuditEntity();
 
     @ManyToOne
     @JoinColumn(name = "postId")
     private Post post;
 
 
-    public AuditEntity getAuditEntity() {
-        return auditEntity;
+    public AuditEntity getAudit() {
+        return audit;
     }
 
-    public void setAuditEntity(AuditEntity auditEntity) {
-        this.auditEntity = auditEntity;
+    public void setAudit(AuditEntity audit) {
+        this.audit = audit;
     }
 
     public Post getPost() {

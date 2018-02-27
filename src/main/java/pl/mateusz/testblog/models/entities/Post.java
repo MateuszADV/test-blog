@@ -47,6 +47,19 @@ public class Post {
     public Post() {
     }
 
+    public Post(String title, String content, AuditEntity auditEntity, List<PostComment> comments) {
+        this.title = title;
+        this.content = content;
+        this.auditEntity = auditEntity;
+        this.comments = comments;
+    }
+
+    public Post(String title, String content, AuditEntity auditEntity) {
+        this.title = title;
+        this.content = content;
+        this.auditEntity = auditEntity;
+    }
+
     public Post(String title, String content) {
         this.title = title;
         this.content = content;
