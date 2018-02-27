@@ -12,8 +12,11 @@ public class Post {
     private String title;
     private String content;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date added = new Date();
+   /* @Temporal(TemporalType.TIMESTAMP)
+    private Date added = new Date();*/
+
+   @Embedded
+   private AuditEntity auditEntity = new AuditEntity();
 
     @OneToMany(mappedBy = "post",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     //@JoinColumn(name = "postId")
@@ -24,6 +27,14 @@ public class Post {
             joinColumns = {@JoinColumn(name = "postId")},
             inverseJoinColumns = {@JoinColumn(name = "tagId")})
     private Set<Tag> tags = new HashSet<>();
+
+    public AuditEntity getAuditEntity() {
+        return auditEntity;
+    }
+
+    public void setAuditEntity(AuditEntity auditEntity) {
+        this.auditEntity = auditEntity;
+    }
 
     public Set<Tag> getTags() {
         return tags;
@@ -73,14 +84,6 @@ public class Post {
         this.content = content;
     }
 
-    public Date getAdded() {
-        return added;
-    }
-
-    public void setAdded(Date added) {
-        this.added = added;
-    }
-
     //Dodawanie posta
     public void addComent(PostComment postComment){
         comments.add(postComment);
@@ -100,7 +103,7 @@ public class Post {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", added=" + added +
+                ", added=" +
                 '}';
     }
 }

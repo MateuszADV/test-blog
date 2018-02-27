@@ -10,12 +10,24 @@ public class PostComment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String comment;
-    private Date added = new Date();
+
+    //private Date added = new Date();
+
+    @Embedded
+    private AuditEntity auditEntity = new AuditEntity();
 
     @ManyToOne
     @JoinColumn(name = "postId")
     private Post post;
 
+
+    public AuditEntity getAuditEntity() {
+        return auditEntity;
+    }
+
+    public void setAuditEntity(AuditEntity auditEntity) {
+        this.auditEntity = auditEntity;
+    }
 
     public Post getPost() {
         return post;
@@ -41,11 +53,4 @@ public class PostComment {
         this.comment = comment;
     }
 
-    public Date getAdded() {
-        return added;
-    }
-
-    public void setAdded(Date added) {
-        this.added = added;
-    }
 }

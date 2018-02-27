@@ -12,10 +12,23 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String tagName;
-    private Date added = new Date();
+
+   // private Date added = new Date();
+
+    @Embedded
+    private AuditEntity auditEntity = new AuditEntity();
 
     @ManyToMany(mappedBy = "tags")
     private Set<Post> posts = new HashSet<>();
+
+
+    public AuditEntity getAuditEntity() {
+        return auditEntity;
+    }
+
+    public void setAuditEntity(AuditEntity auditEntity) {
+        this.auditEntity = auditEntity;
+    }
 
     public Set<Post> getPosts() {
         return posts;
@@ -41,11 +54,4 @@ public class Tag {
         this.tagName = tagName;
     }
 
-    public Date getAdded() {
-        return added;
-    }
-
-    public void setAdded(Date added) {
-        this.added = added;
-    }
 }
