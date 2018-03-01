@@ -28,6 +28,18 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "tagId")})
     private Set<Tag> tags = new HashSet<>();
 
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "mapPostUser")
+    private List<User> users = new ArrayList<>();
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
     public AuditEntity getAuditEntity() {
         return auditEntity;
     }

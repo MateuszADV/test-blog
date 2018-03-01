@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.mateusz.testblog.models.dtos.PostDto;
 import pl.mateusz.testblog.models.entities.Post;
 import pl.mateusz.testblog.models.entities.PostComment;
 import pl.mateusz.testblog.models.repositories.PostRepository;

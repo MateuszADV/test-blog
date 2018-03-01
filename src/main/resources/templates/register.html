@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejestracja</title>
+</head>
+<body>
+<div class="heade">
+
+    <div th:insert="~{includes/searchbar :: searchForm}">
+
+    </div>
+</div>
+    <h1>REJSTRACJA</h1>
+
+<form th:action="@{/register}" method="post" th:object="${userDto}">
+    <table>
+        <tr>
+            <td>Imię</td>
+            <td><input type="text" th:field="*{name}" placeholder="Imię"></td>
+        </tr>
+        <tr>
+            <td>Nazwisko</td>
+            <td><input type="text" th:field="*{lastname}" placeholder="Nazwisko"></td>
+        </tr>
+        <tr>
+            <td>Wiek</td>
+            <td><input type="number" th:field="*{age}" placeholder="wiek"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" th:field="*{email}" placeholder="Email"></td>
+        </tr>
+        <tr>
+            <td>Login</td>
+            <td><input type="text" th:field="*{login}" placeholder="Login"><span th:text="${existLogin}"></span></td>
+        </tr>
+        <tr>
+            <td>Hasło</td>
+            <td><input type="password" th:field="*{password}" placeholder="Hasło"></td>
+        </tr>
+        <tr>
+            <td>Powtórz hasło</td>
+            <td><input type="password" th:name="repeatPassword" placeholder="Pwtórz hasło"><span th:text="${repeatPassword}"></span></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="rejestracja"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

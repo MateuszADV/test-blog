@@ -1,7 +1,6 @@
 package pl.mateusz.testblog.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +12,6 @@ import pl.mateusz.testblog.models.entities.Post;
 import pl.mateusz.testblog.models.entities.PostComment;
 import pl.mateusz.testblog.models.repositories.PostRepository;
 
-import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,8 +55,9 @@ public class MainController {
 
     @GetMapping("/posts")
     public String postsGet(ModelMap modelMap){
+
         List<Post> postList = new ArrayList<>();
-        Iterable<Post> postIterable = postRepository.findAll();
+        List<Post> postIterable = postRepository.findAll();
         for (Post post : postIterable) {
             postList.add(post);
         }

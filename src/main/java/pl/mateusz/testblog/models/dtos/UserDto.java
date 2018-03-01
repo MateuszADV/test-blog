@@ -13,6 +13,7 @@ public class UserDto {
     private String email;
     private Date addedUser = new Date();
 
+
     public Long getId() {
         return id;
     }

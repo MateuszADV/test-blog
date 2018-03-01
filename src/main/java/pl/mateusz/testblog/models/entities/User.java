@@ -1,10 +1,11 @@
 package pl.mateusz.testblog.models.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import pl.mateusz.testblog.models.dtos.UserDto;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User {
@@ -19,6 +20,17 @@ public class User {
     private String password;
     private String email;
     private Date addedUser = new Date();
+
+    @ManyToMany(mappedBy = "users")
+    private List<Post> posts = new ArrayList<>();
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 
     public Long getId() {
         return id;
@@ -82,5 +94,15 @@ public class User {
 
     public void setAddedUser(Date addedUser) {
         this.addedUser = addedUser;
+    }
+
+    public User(UserDto userDto){
+        name = userDto.getName();
+        lastname = userDto.getLastname();
+        age = userDto.getAge();
+        login = userDto.getLogin();
+        password = userDto.getPassword();
+        email = userDto.getEmail();
+        addedUser = userDto.getAddedUser();
     }
 }
