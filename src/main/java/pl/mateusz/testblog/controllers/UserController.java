@@ -1,5 +1,6 @@
 package pl.mateusz.testblog.controllers;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.mateusz.testblog.models.dtos.UserDto;
 import pl.mateusz.testblog.models.dtos.UserLoginDto;
 import pl.mateusz.testblog.models.entities.User;
+import pl.mateusz.testblog.models.forms.LoginForm;
+import pl.mateusz.testblog.models.forms.RegisterForm;
 import pl.mateusz.testblog.models.repositories.UserRepository;
+import pl.mateusz.testblog.service.UserSessionService;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -21,11 +25,15 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserSessionService userSessionService) {
         this.userRepository = userRepository;
+        this.userSessionService = userSessionService;
     }
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    private UserSessionService userSessionService;
+
+
 
     @GetMapping("/register")
     public String registerGet(ModelMap modelMap){
@@ -34,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerPost(@ModelAttribute("userDto")@Valid UserDto userDto, BindingResult bindingResult,
+    public String registerPost(@ModelAttribute("userDto")@Valid RegisterForm registerForm, BindingResult bindingResult,
                                @RequestParam String repeatPassword,
                                ModelMap modelMap){
 
@@ -43,10 +51,11 @@ public class UserController {
             return "register";
         }
 
-        userRepository.save(new User(userDto));
+        User user = (new ModelMapper()).map(registerForm, User.class);
+        userRepository.save(user);
 
 
-        return "register";
+        return "index";
     }
 
     //---------------------------------------------------------------------------------------------
@@ -54,27 +63,25 @@ public class UserController {
     @GetMapping("/login")
     public String loginGet(ModelMap modelMap){
 
-        modelMap.addAttribute("userLoginDto", new UserLoginDto());
+        modelMap.addAttribute("loginForm", new LoginForm());
 
         return "login";
     }
 
     @PostMapping("/login")
-    public String registerPost(@ModelAttribute("userLoginDto")@Valid UserLoginDto userLoginDto, BindingResult bindingResult,
+    public String loginPost(@ModelAttribute("loginForm")@Valid LoginForm loginForm, BindingResult bindingResult,
                                ModelMap modelMap) {
 
-        Optional<UserDto> optionalUser = userRepository.findByName(userLoginDto.getName());
-
-        if(!optionalUser.isPresent()){
-            bindingResult.addError(
-                    new ObjectError("name","Użytkownik ni eistnieje"));
+        boolean logged = userSessionService.loginUser(loginForm.getName(),loginForm.getPassword());
+        if(!logged){
+            bindingResult.addError(new ObjectError("name", "Użytkownik nie istnieje"));
         }
 
         if(bindingResult.hasErrors()) {
-
             return "login";
         }
 
+        modelMap.addAttribute("loggedUser", logged);
 
         return "index";
     }

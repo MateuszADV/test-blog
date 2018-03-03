@@ -110,7 +110,7 @@ public class User {
         this.audit = audit;
     }
 
-    public User(UserDto userDto){
+   /* public User(UserDto userDto){
         name = userDto.getName();
         lastname = userDto.getLastname();
         age = userDto.getAge();
@@ -118,5 +118,5 @@ public class User {
         password = userDto.getPassword();
         email = userDto.getEmail();
         addedUser = userDto.getAddedUser();
-    }
+    }*/
 }
