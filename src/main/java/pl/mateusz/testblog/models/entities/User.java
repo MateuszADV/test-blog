@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
 public class User {
 
@@ -16,10 +17,15 @@ public class User {
     private String name;
     private String lastname;
     private int age;
+    private String email;
+
     private String login;
     private String password;
-    private String email;
+
     private Date addedUser = new Date();
+
+    @Embedded
+    private AuditEntity audit = new AuditEntity();
 
     @ManyToMany(mappedBy = "users")
     private List<Post> posts = new ArrayList<>();
@@ -94,6 +100,14 @@ public class User {
 
     public void setAddedUser(Date addedUser) {
         this.addedUser = addedUser;
+    }
+
+    public AuditEntity getAudit() {
+        return audit;
+    }
+
+    public void setAudit(AuditEntity audit) {
+        this.audit = audit;
     }
 
     public User(UserDto userDto){

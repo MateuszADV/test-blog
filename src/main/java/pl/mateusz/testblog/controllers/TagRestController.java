@@ -43,21 +43,22 @@ public class TagRestController {
                 .body(tagDto);
     }
 
-    @PutMapping("/tag/addPost")
-    public ResponseEntity<Post> addTagToPost(@RequestParam Long tagId,
-                                            @RequestParam Long postId){
+    @PutMapping("/tag/addToPost")
+    public ResponseEntity<PostDto> addTagToPost(@RequestParam Long tagId,
+                                             @RequestParam Long postId){
         Tag tag = tagRepository.getOne(tagId);
         Post post = postRepository.getOne(postId);
 
         post.getTags().add(tag);
         postRepository.save(post);
 
+
         return ResponseEntity
                 .ok()
-                .body(post);
+                .body((new ModelMapper()).map(post, PostDto.class));
     }
 
-    @PutMapping("/post/addComment")
+   /* @PutMapping("/post/addComment")
     public ResponseEntity<PostComment> createComment(@RequestParam String comment,
                                                         @RequestParam Long postId){
         //Post post = new Post();
@@ -81,5 +82,5 @@ public class TagRestController {
         return ResponseEntity
                 .ok()
                 .body(postComment);
-    }
+    }*/
 }

@@ -1,7 +1,6 @@
 package pl.mateusz.testblog.models.entities;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,18 +15,18 @@ public class Tag {
    // private Date added = new Date();
 
     @Embedded
-    private AuditEntity auditEntity = new AuditEntity();
+    private AuditEntity entity = new AuditEntity();
 
     @ManyToMany(mappedBy = "tags")
     private Set<Post> posts = new HashSet<>();
 
 
-    public AuditEntity getAuditEntity() {
-        return auditEntity;
+    public AuditEntity getEntity() {
+        return entity;
     }
 
-    public void setAuditEntity(AuditEntity auditEntity) {
-        this.auditEntity = auditEntity;
+    public void setEntity(AuditEntity entity) {
+        this.entity = entity;
     }
 
     public Set<Post> getPosts() {

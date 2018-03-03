@@ -12,7 +12,28 @@
     </div>
 </div>
     <h1>Logowanie</h1>
+   <!-- <form th:action="@{/login}" method="post" th:field="${userLoginDto}">
+        <p>Login <input type="text"  th:object="*{name}"></p>
+        <p>Password <input type="password" th:object=="*{password}"></p>
+        <p><input type="submit" value="LOGUJ"></p>
+    </form>-->
 
+<form th:action="@{/login}" method="post" th:object="${userLoginDto}">
+<table>
+    <tr>
+        <td>Imię</td>
+        <td><input type="text" th:field="*{name}" placeholder="Imię" th:errorClass="error"><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Błąd nazwy uzytkownika...</span></td>
+    </tr>
+
+    <tr>
+        <td>Hasło</td>
+        <td><input type="password" th:field="*{password}" placeholder="Hasło"><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> Błąd nazwy uzytkownika...</span></td>
+    </tr>
+
+        <td><input type="submit" value="Logowanie"></td>
+    </tr>
+</table>
+</form>
 
 </body>
 </html>

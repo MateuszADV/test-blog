@@ -3,12 +3,13 @@ package pl.mateusz.testblog.models.dtos;
 import pl.mateusz.testblog.models.entities.AuditEntity;
 import pl.mateusz.testblog.models.entities.Post;
 
+import java.util.Date;
+
 public class PostCommentDto {
 
     private Long id;
     private String comments;
-    private AuditEntity audit = new AuditEntity();
-    private Post post;
+    private Date added;
 
     public Long getId() {
         return id;
@@ -26,19 +27,12 @@ public class PostCommentDto {
         this.comments = comments;
     }
 
-    public AuditEntity getAudit() {
-        return audit;
+    public Date getAdded() {
+        return added;
     }
 
-    public void setAudit(AuditEntity audit) {
-        this.audit = audit;
+    public void setAdded(Date added) {
+        this.added = added;
     }
 
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
 }

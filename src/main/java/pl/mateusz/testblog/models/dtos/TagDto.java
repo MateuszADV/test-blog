@@ -1,13 +1,16 @@
 package pl.mateusz.testblog.models.dtos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import pl.mateusz.testblog.models.entities.Post;
 
-import java.util.Date;
 import java.util.Set;
+
 
 public class TagDto {
     private Long id;
     private String tagName;
+
+    @JsonBackReference
     private Set<PostDto> postSet;
 
 
