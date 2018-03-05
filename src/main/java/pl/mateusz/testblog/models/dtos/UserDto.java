@@ -1,10 +1,13 @@
 package pl.mateusz.testblog.models.dtos;
 
+import lombok.ToString;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+@ToString(exclude = "password")
 public class UserDto {
 
     private Long id;

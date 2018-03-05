@@ -1,5 +1,8 @@
 package pl.mateusz.testblog.models.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -28,16 +31,18 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "tagId")})
     private Set<Tag> tags = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "mapPostUser")
-    private List<User> users = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "userId") //właściciel relacji
+    @Getter @Setter
+    private User user;
 
-    public List<User> getUsers() {
-        return users;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public AuditEntity getAuditEntity() {
@@ -121,6 +126,7 @@ public class Post {
         comments.remove(postComment);
         postComment.setPost(null);
     }
+
 
     @Override
     public String toString() {

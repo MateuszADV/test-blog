@@ -27,16 +27,6 @@ public class User {
     @Embedded
     private AuditEntity audit = new AuditEntity();
 
-    @ManyToMany(mappedBy = "users")
-    private List<Post> posts = new ArrayList<>();
-
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
 
     public Long getId() {
         return id;

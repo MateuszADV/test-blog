@@ -24,6 +24,8 @@ public class TagRestController {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    ModelMapper modelMapper;
 
 
     @RequestMapping(value = "/tag" ,method = RequestMethod.POST)

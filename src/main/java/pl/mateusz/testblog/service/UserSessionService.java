@@ -1,5 +1,7 @@
 package pl.mateusz.testblog.service;
 
+import lombok.Getter;
+import lombok.ToString;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -12,15 +14,19 @@ import pl.mateusz.testblog.models.repositories.UserRepository;
 import java.util.Optional;
 
 @Service
-@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)  //
 public class UserSessionService {
 
-
+    @Getter
     private boolean logged;
+    @Getter
     private UserDto userDto;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     public boolean loginUser(String name, String password){
         Optional<User> optionalUser = userRepository.findByName(name);
@@ -35,7 +41,7 @@ public class UserSessionService {
             return false;
         }
 
-        userDto = (new ModelMapper().map(user, UserDto.class));
+        userDto = (modelMapper.map(user, UserDto.class));
 
         logged = true;
         return logged;
