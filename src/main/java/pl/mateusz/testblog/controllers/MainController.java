@@ -2,6 +2,8 @@ package pl.mateusz.testblog.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.mateusz.testblog.models.entities.Post;
 import pl.mateusz.testblog.models.entities.PostComment;
 import pl.mateusz.testblog.models.repositories.PostRepository;
+import pl.mateusz.testblog.service.UserSessionService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +22,20 @@ import java.util.List;
 public class MainController {
 
     private PostRepository postRepository;
+    private UserSessionService userSessionService;
+
+    @Autowired
+    public MainController(PostRepository postRepository, UserSessionService userSessionService) {
+        this.postRepository = postRepository;
+        this.userSessionService = userSessionService;
+    }
 
     @GetMapping("/")
-    public String indexGet(ModelMap modelMap){
+    public String indexGet(ModelMap modelMap, Authentication authentication){
+        if(authentication != null){
+            modelMap.addAttribute("principal", (User)authentication.getPrincipal());
+        }
+        modelMap.addAttribute("loggedUser", userSessionService.getUserDto());
         modelMap.addAttribute("name","Mateusz");
         return "index";
     }
@@ -97,8 +111,8 @@ public class MainController {
         return "posts";
     }
 
-    @Autowired
-    public MainController(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
+//    @Autowired
+//    public MainController(PostRepository postRepository) {
+//        this.postRepository = postRepository;
+//    }
 }

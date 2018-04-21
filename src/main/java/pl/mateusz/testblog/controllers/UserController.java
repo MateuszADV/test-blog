@@ -24,16 +24,15 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
+    private UserRepository userRepository;
+    private UserSessionService userSessionService;
+
+
     @Autowired
     public UserController(UserRepository userRepository, UserSessionService userSessionService) {
         this.userRepository = userRepository;
         this.userSessionService = userSessionService;
     }
-
-    private UserRepository userRepository;
-    private UserSessionService userSessionService;
-
-
 
     @GetMapping("/register")
     public String registerGet(ModelMap modelMap){
@@ -53,8 +52,6 @@ public class UserController {
 
         User user = (new ModelMapper()).map(registerForm, User.class);
         userRepository.save(user);
-
-
         return "index";
     }
 
@@ -74,7 +71,8 @@ public class UserController {
 
         boolean logged = userSessionService.loginUser(loginForm.getName(),loginForm.getPassword());
         if(!logged){
-            bindingResult.addError(new ObjectError("name", "Użytkownik nie istnieje"));
+            //bindingResult.addError(new ObjectError("name", "Użytkownik nie istnieje"));
+            bindingResult.rejectValue("name", null,"Uzytkownik nie istnieje.");
         }
 
         if(bindingResult.hasErrors()) {
@@ -84,5 +82,13 @@ public class UserController {
         modelMap.addAttribute("loggedUser", logged);
 
         return "index";
+    }
+
+
+    @GetMapping("/logout")
+    public String logout(){
+
+        userSessionService.logOut();
+        return "redirect:/login";
     }
 }

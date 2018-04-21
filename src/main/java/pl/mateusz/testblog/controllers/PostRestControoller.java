@@ -29,7 +29,6 @@ public class PostRestControoller {
         this.postService = postService;
     }
 
-
     @PostMapping("/api/post/{postId}/comments")
     public ResponseEntity<PostCommentDto> addPostComment(@RequestParam String comments,
                                                          @PathVariable Long postId){

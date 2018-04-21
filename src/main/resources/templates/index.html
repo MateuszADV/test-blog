@@ -6,7 +6,8 @@
 </head>
 <body>
     <h1>Witaj na blogu</h1>
-    <p th:text="${'zalogowany: ' + loggedUser}"></p>
+    <p th:if="${principal != null}" th:text="${'principal '+ principal}"></p>
+    <!--<p th:text="${'zalogowany: ' + loggedUser}"></p>-->
     <p th:text="${name}">Stefan</p>
 
 </body>
